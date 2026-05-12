@@ -1,5 +1,5 @@
-google-adk==1.33.0
-streamlit==1.45.1
-requests==2.32.3
-python-dotenv==1.1.0
-groq==0.28.0
+google-adk[extensions]
+streamlit
+requests
+python-dotenv
+groq
