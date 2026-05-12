@@ -9,6 +9,9 @@ load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 SERPER_API_KEY = os.getenv("SERPER_API_KEY")
 
+# LiteLLM reads these directly from os.environ
+os.environ["GROQ_API_KEY"] = GROQ_API_KEY or ""
+
 def web_search(query: str) -> str:
     """Search the web for current information on any topic."""
     url = "https://google.serper.dev/search"
@@ -46,7 +49,6 @@ def calculate(expression: str) -> str:
 
 model = LiteLlm(
     model="groq/meta-llama/llama-4-scout-17b-16e-instruct",
-    api_key=GROQ_API_KEY,
 )
 
 root_agent = Agent(
@@ -58,7 +60,6 @@ You have access to three tools:
 1. web_search — use this for any current events, facts, or research questions
 2. get_weather — use this when the user asks about weather in any city
 3. calculate — use this for any math calculations
-
 Always think step by step. Use tools when needed. Be concise and helpful.
 If asked who you are, say you are APEX, a cloud-deployed AI agent built on Google ADK.""",
     tools=[web_search, get_weather, calculate],
